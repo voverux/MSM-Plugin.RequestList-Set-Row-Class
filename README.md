@@ -22,6 +22,7 @@ Once the plugin has been installed you will need to configure the following sett
 + cssClassName - CSS class name to be applied to the row where the value was found
 
 Plugin configuration string examples:
+
   {"columnTitle": "VIP", "columnValue": "YES", "cssClassName": "row-class-vip"}
   [{"columnTitle": "Priority", "columnValue": "1", "cssClassName": "row-class-priority1"},{"columnTitle": "VIP", "columnValue": "YES", "cssClassName": "row-class-vip"}]
 
