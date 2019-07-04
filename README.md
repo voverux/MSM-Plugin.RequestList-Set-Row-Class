@@ -16,10 +16,10 @@ Please see MSM documentation for the information on how to install plugins.
 
 Once the plugin has been installed you will need to configure the following settings within the plugin page:
 
-+ *Plugin Configuration* : 	The plugin configuration stored in a JSON format. The rule object should contain these three parameters specified:
-++ columnTitle - the title of column to search value within
-++ columnValue - the specific value to search for in the column
-++ cssClassName - CSS class name to be applied to the row where the value was found
+*Plugin Configuration* : 	The plugin configuration stored in a JSON format. The rule object should contain these three parameters specified:
++ columnTitle - the title of column to search value within
++ columnValue - the specific value to search for in the column
++ cssClassName - CSS class name to be applied to the row where the value was found
 
 Plugin configuration string examples:
   {"columnTitle": "VIP", "columnValue": "YES", "cssClassName": "row-class-vip"}
