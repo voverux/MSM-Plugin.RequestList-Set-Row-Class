@@ -1,0 +1,82 @@
+<script type="text/javascript" src="template.js"></script>
+<script>
+    (function (){
+        var _pluginId = "marval-baltic-plugins-requestlist-set-row-class";
+	    var $ = window.top.$;
+		var MarvalSoftware = window.top.MarvalSoftware;
+		MarvalSoftware.Plugins.define(_pluginId, 
+		{
+            _pluginHandlerRequest: null,
+			_pluginRules: null,
+			_table: null,
+			_header: null,
+			_list: null,
+			
+			init: function(){
+				this._table = MarvalSoftware.UI.Controls.ScriptManager.getInstance().getControl("__Page")._grid; if(!this._table){ this._logConsole('Plugin Error! Requests grid control could not be found.'); return; }
+				this._header = this._table._headerElement; if(!this._header){ this._logConsole('Plugin Error! Requests grid header element could not be found.'); return; }
+				this._list = this._table._bodyElement; if(!this._list){ this._logConsole('Plugin Error! Requests grid body element could not be found.'); return; }
+				this._getPluginConfig(
+					this,
+					this._pluginInitialActions
+				);
+			
+			},
+			_getPluginConfig: function(plugin, callback){
+				if (this._pluginHandlerRequest){
+					this._pluginHandlerRequest.abort();
+					this._pluginHandlerRequest = null;
+				}
+				this._pluginHandlerRequest = $.ajax({
+					type: "GET",
+					url: this.attributes["data-pluginpath"].value + "APIHandler.ashx",
+					contentType: "text/html",
+					dataType: "text",
+					success: function (result){
+						callback(plugin, result);
+					}.bind(this),
+					error: function (xhr, ajaxOptions, thrownError){
+						if (xhr.status > 0) this._logConsole('jQuery AJAX call error: ' + xhr.status + '\n' + thrownError);
+					}.bind(this)
+				});
+			},
+			_pluginInitialActions: function(plugin, pluginConfig){
+				try {
+					plugin._pluginRules = JSON.parse(pluginConfig);
+					if(plugin._pluginRules.constructor !== Array) plugin._pluginRules = [plugin._pluginRules];
+				} catch (e) {
+					plugin._logConsole('Plugin Error! Plugin configuration string could not be parsed as JSON object.');
+					return;
+				}
+				plugin._pluginRulesProcessing();
+				plugin._table.onRenderedDataSource.subscribe(plugin._gridRefreshedExtraFunction, plugin);
+			},
+			_gridRefreshedExtraFunction: function(sender, e){
+				this._pluginRulesProcessing();
+			},
+			_pluginRulesProcessing: function(){
+				var pluginRules = this._pluginRules;
+				for (var i = 0; i < pluginRules.length; i++){
+					var j = 0;
+					var cidx = -1;
+					$('#' + this._header.id + ' > .row > .cell').each(function(){
+						var hdrcell = $(this).find(".cell-header");
+						if(hdrcell.length>0 && $(hdrcell[0]).text()==pluginRules[i].columnTitle) cidx = j;
+						j++;
+					});
+					if(cidx>=0){
+						$('#' + this._list.id + ' a').each(function(){
+							var cells = $(this).find("> .cell:eq(" + cidx + ") > .cell-default");
+							if($(this).find(".cell:eq(" + cidx + ") > .cell-default").text()==pluginRules[i].columnValue)
+								$(this).addClass(pluginRules[i].cssClassName);
+						});
+					
+					}
+				}
+			},
+			_logConsole: function(s){
+				console.log(s);
+			}
+		});
+    })();
+</script>
