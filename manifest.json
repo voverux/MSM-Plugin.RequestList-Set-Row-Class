@@ -3,7 +3,7 @@
     "Organisation": "Marval Baltic",
     "DisplayName": "RequestList Set Row Class",
     "Icon": "request_list_style_16.png",
-    "Version": "1.3",
+    "Version": "1.4",
     "SupportedVersions": [
         "14.16",
         "14.15",
@@ -14,7 +14,8 @@
         "14.10"
     ],
     "Pages": [
-        "RequestList.aspx"
+        "RequestList.aspx",
+        "RequestSearch.aspx"
     ],
     "HtmlImportFile": "requestlist_set_row_class.html",
     "TagName": "marval-baltic-plugins-requestlist-set-row-class",

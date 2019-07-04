@@ -8,7 +8,7 @@ Multiple rules could be set in the plugin configuration if required.
 
 | Plugin  | MSM                    |
 |---------|------------------------|
-| 1.3     | 14.10 - 14.16          |
+| 1.4     | 14.10 - 14.16          |
 
 ## Installation
 
@@ -28,6 +28,10 @@ Plugin configuration string examples:
   [{"columnTitle": "Priority", "columnValue": "1", "cssClassName": "row-class-priority1"},{"columnTitle": "VIP", "columnValue": "YES", "cssClassName": "row-class-vip"}]
 
 Style of classes used in the configuration must be defined in MSM Custom CSS specifications.
+
+Please ensure that you have these system settings specified:
++ Include Custom Stylesheet = ON
++ Disable User Interface Plugins = OFF
 
 ## Usage
 
